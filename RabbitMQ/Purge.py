@@ -6,18 +6,17 @@ import pika, os, time
 #   time.sleep(0.1) # delays for 0.5 seconds
   
 
-params = pika.URLParameters("amqp://solrmquser:HDznY99bPybeoe8d48ts@172.0.55.8:5672/")
+params = pika.URLParameters("")
 connection = pika.BlockingConnection(params)
 channel = connection.channel() # start a channel
 allQs=["dlq-digi-measurements","dlq-realtiteq-alarms","dlq-realtiteq-measurements1","dlq-realtiteq-measurements2","dlq-realtiteq-measurements3","dlq-realtiteq-measurements4","dlq-realtiteq-measurements5","dlq-realtiteq-measurements6","dlq-realtiteq-measurements7","dlq-realtiteq-measurements8","dlq-realtiteq-measurements9","dlq-realtiteq-measurements10","dlq-realtiteq-measurements11","dlq-realtiteq-measurements12","dlq-realtiteq-measurements13","dlq-realtiteq-measurements14","dlq-realtiteq-measurements15","temp-bkup"]
 for q in allQs:
-    print("Purging queue "+q)
     frame = channel.queue_declare(queue=q,durable=True,passive=True) 
     message_count = frame.method.message_count
-    print("Queue "+q+" has \t"+str(message_count)+" messages")
+    
     if message_count>0:
       channel.queue_purge(queue=q)
-      print("Purged queue "+q)
+      print("Queue "+q+" purged \t\t"+str(message_count)+" messages")
   
 # channel.queue_declare(queue='temp-bkup',durable=True) # Declare a queue with name temp-bkup (not necessary as already declared 
 
@@ -34,4 +33,6 @@ for q in allQs:
 # channel.start_consuming()
 channel.close()
 connection.close()
+print("\n\nauto close in 5 sec")
+time.sleep(5) # delays for 5 seconds
 
