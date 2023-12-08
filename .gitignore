@@ -160,3 +160,9 @@ cython_debug/
 #.idea/
 RabbitMQ/Purge.py
 RabbitMQ/Purge.py
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/python-windows.iml
+/.idea/vcs.xml
