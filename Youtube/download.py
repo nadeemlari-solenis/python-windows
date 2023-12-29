@@ -1,5 +1,5 @@
 from pytube import YouTube
-import tkinter as tk
+# import tkinter as tk
 import time
 from tkinter import filedialog
 import sys
